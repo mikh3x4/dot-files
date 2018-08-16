@@ -19,15 +19,22 @@ Plug 'ervandew/supertab'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'dragfire/Improved-Syntax-Highlighting-Vim'
 
+Plug 'LucHermitte/VimFold4C'
+Plug 'tpope/vim-fugitive'
+
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
 "
 " Plug 'python-mode/python-mode', {'branch': 'develop'}
 " Plug 'python-mode/python-mode'
 Plug 'davidhalter/jedi-vim'
 Plug 'vim-scripts/indentpython.vim'
+Plug 'nvie/vim-flake8'
 
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tmhedberg/simpylfold'
 Plug '907th/vim-auto-save'
+Plug 'chrisbra/csv.vim'
 "
 " Plug 'Valloric/YouCompleteMe'
 "Plug 'hdima/python-syntax'
@@ -56,8 +63,8 @@ set cursorline
 syntax on
 
 set foldlevel=99
-set clipboard=unnamed
-nnoremap <esc> :noh<return><esc>
+set clipboard=unnamedplus
+" nnoremap <esc> :noh<return><esc>
 set spell
 set mouse=a
 
@@ -72,15 +79,22 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 xmap ga <Plug>(EasyAlign)
 
 " Python config
-au BufNewFile,BufRead *.py
-    \set tabstop=4
-    \set softtabstop=4
-    \set shiftwidth=4
-    \set textwidth=120
-    \set expandtab
+au BufNewFile,BufRead *.py set tabstop=4|
+    \set softtabstop=4|
+    \set shiftwidth=4|
+    \set textwidth=120|
+    \set expandtab|
     \set autoindent
 "     \set fileformat=unix
 
+" C config
+au BufNewFile,BufRead *.cc,*.c,*cpp,*.h,*.hpp set tabstop=4|
+    \set softtabstop=4|
+    \set shiftwidth=4|
+    \set textwidth=120|
+    \set expandtab|
+    \set autoindent
+"     \set fileformat=unix
 
 let g:pymode_rope = 0
 let g:pymode_lint_cwindow = 0
@@ -90,6 +104,33 @@ let g:pymode_lint_cwindow = 0
 
 " autocmd Filetype python setlocal makeprg="python %"
 " nnoremap <M-B> :make<CR>
+"
+autocmd FileType python map <buffer> <Leader>l :call Flake8()<CR>
+let g:flake8_show_in_gutter=1
+let g:flake8_show_in_file=1
+
+autocmd VimLeave * call system("xclip -o | xclip -selection c")
+
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
+
+map <C-A>j <C-W>j
+map <C-A>k <C-W>k
+
+" makes enter key highlight word under cursor
+let g:highlighting = 0
+function! Highlighting()
+  if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
+    let g:highlighting = 0
+    return ":silent nohlsearch\<CR>"
+  endif
+  let @/ = '\<'.expand('<cword>').'\>'
+  let g:highlighting = 1
+  return ":silent set hlsearch\<CR>"
+endfunction
+nnoremap <silent> <expr> <CR> Highlighting()
+" vnoremap <silent> <expr> <CR> Highlighting()
+
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 
 nnoremap <F5> :call <SID>compile_and_run()<CR>
 
