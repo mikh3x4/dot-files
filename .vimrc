@@ -8,7 +8,7 @@ call plug#begin()
 Plug 'tomasr/molokai'
 
 Plug 'tpope/vim-commentary'
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-repeat'
 
@@ -31,6 +31,8 @@ syntax on
 
 "nnoremap <esc> :noh<return><esc>
 nnoremap gm m
+
+let g:EasyClipUseSubstituteDefaults = 1
 
 " let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
