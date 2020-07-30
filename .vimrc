@@ -14,6 +14,9 @@ Plug 'tpope/vim-repeat'
 
 Plug 'ervandew/supertab'
 
+Plug 'mg979/vim-visual-multi'
+
+
 Plug 'bling/vim-airline'
 call plug#end()
 
@@ -37,6 +40,17 @@ let g:EasyClipUseSubstituteDefaults = 1
 " let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+let g:VM_maps = {}
+let g:VM_maps["Switch Mode"] = 'v'
+let g:VM_maps['Find Under']                  = '<C-n>'
+let g:VM_maps['Find Subword Under']          = '<C-n>'
+let g:VM_maps["Add Cursor Down"]             = '<C-j>'
+let g:VM_maps["Add Cursor Up"]               = '<C-k'
+
+let g:VM_maps["Align"]                       = 'ga'
+let g:VM_maps["Visual Cursors"]              = 'gl'
+
 
 " Python config
 au BufNewFile,BufRead *.py
