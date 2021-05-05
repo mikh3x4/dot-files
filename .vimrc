@@ -15,15 +15,43 @@ Plug 'tpope/vim-repeat'
 Plug 'ervandew/supertab'
 
 Plug 'mg979/vim-visual-multi'
+" Plug 'ctrlpvim/ctrlp.vim'
+"
+Plug 'easymotion/vim-easymotion'
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 Plug 'bling/vim-airline'
+
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+
 call plug#end()
 
 colo molokai
 if has("gui_vimr")
 	 let g:molokai_original = 1
 endif
+
+nnoremap <c-p> :Files<cr>
+
+" " ctrlp settings
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlPMixed'
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+"
+"
+" easymotoin settings
+"
+let g:EasyMotion_do_mapping = 0
+
+nmap s <Plug>(easymotion-overwin-f2)
+nmap gw <Plug>(easymotion-overwin-w)
+let g:EasyMotion_keys = 'sadfjklewcmpgh'
+
+let g:EasyMotion_smartcase = 1
+
 
 inoremap jk <Esc>
 
@@ -70,6 +98,12 @@ au BufNewFile,BufRead *.cc,*.c,*cpp,*.h,*.hpp set tabstop=4|
     \set expandtab|
     \set autoindent
 "     \set fileformat=unix
+
+
+" incremental search
+set incsearch
+set hlsearch
+
 
 " makes enter key highlight word under cursor
 let g:highlighting = 0
