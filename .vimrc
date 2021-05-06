@@ -6,23 +6,22 @@ endif
 
 call plug#begin()
 Plug 'tomasr/molokai'
+Plug 'bling/vim-airline'
+
+Plug 'ervandew/supertab'
+Plug 'davidhalter/jedi-vim'
 
 Plug 'tpope/vim-commentary'
-" Plug 'justinmk/vim-sneak'
 Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-repeat'
 
-Plug 'ervandew/supertab'
-
 Plug 'mg979/vim-visual-multi'
-" Plug 'ctrlpvim/ctrlp.vim'
-"
+" Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-
-Plug 'bling/vim-airline'
 
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
@@ -46,8 +45,9 @@ nnoremap <c-p> :Files<cr>
 "
 let g:EasyMotion_do_mapping = 0
 
-nmap s <Plug>(easymotion-overwin-f2)
-nmap gw <Plug>(easymotion-overwin-w)
+nmap gw <Plug>(easymotion-overwin-f2)
+" nmap s <Plug>(easymotion-overwin-w)
+nmap <Space> <Plug>(easymotion-overwin-w)
 let g:EasyMotion_keys = 'sadfjklewcmpgh'
 
 let g:EasyMotion_smartcase = 1
@@ -64,6 +64,9 @@ syntax on
 nnoremap gm m
 
 let g:EasyClipUseSubstituteDefaults = 1
+
+" noremap <c-]> <plug>EasyClipSwapPasteForward
+" noremap <c-[> <plug>EasyClipSwapPasteBackward
 
 " let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
