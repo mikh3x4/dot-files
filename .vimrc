@@ -6,14 +6,38 @@ endif
 
 call plug#begin()
 Plug 'tomasr/molokai'
+
 Plug 'bling/vim-airline'
 
 Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
 
 Plug 'tpope/vim-commentary'
-Plug 'svermeulen/vim-easyclip'
 Plug 'tpope/vim-repeat'
+
+" Plug 'svermeulen/vim-easyclip'
+Plug 'svermeulen/vim-cutlass'
+nnoremap m d
+xnoremap m d
+
+nnoremap mm dd
+nnoremap M D
+
+Plug 'svermeulen/vim-subversive'
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
+
+" Plug 'svermeulen/vim-yoink'
+
+" nmap <c-[> <plug>(YoinkPostPasteSwapBack)
+" nmap <c-]> <plug>(YoinkPostPasteSwapForward)
+" nmap p <plug>(YoinkPaste_p)
+" nmap P <plug>(YoinkPaste_P)
+
+" nmap [y <plug>(YoinkRotateBack)
+" nmap ]y <plug>(YoinkRotateForward)
+" let g:yoinkIncludeDeleteOperations = 1
 
 Plug 'mg979/vim-visual-multi'
 " Plug 'justinmk/vim-sneak'
@@ -32,6 +56,9 @@ colo molokai
 if has("gui_vimr")
 	 let g:molokai_original = 1
 endif
+
+autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
+" autocmd ColorScheme * hi MatchParen gui=bold guibg=none guifg=#FD971F
 
 nnoremap <c-p> :Files<cr>
 
