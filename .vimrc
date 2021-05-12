@@ -150,4 +150,5 @@ nnoremap <silent> <expr> <CR> Highlighting()
 " vnoremap <silent> <expr> <CR> Highlighting()
 
 
+command W w
 
