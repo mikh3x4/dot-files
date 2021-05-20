@@ -9,24 +9,51 @@ Plug 'tomasr/molokai'
 
 Plug 'bling/vim-airline'
 
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" need to set leader 
+"
 Plug 'ervandew/supertab'
 Plug 'davidhalter/jedi-vim'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 
+
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
+" Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+
+" Plug 'szymonmaszke/vimpyter' "vim-plug # notedown
+Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
+" Plug 'goerz/jupytext.vim' "vim-plug # jupytext
+
+
+
+let g:slime_target = 'tmux'
+
+" fix paste issues in ipython
+let g:slime_python_ipython = 1
+
+let g:slime_cell_delimiter = "# %%"
+let g:slime_default_config = {"socket_name": "default", "target_pane": "2"}
+let g:slime_dont_ask_default = 1
+
+nmap g<CR> <Plug>SlimeSendCell
+
 " Plug 'svermeulen/vim-easyclip'
 Plug 'svermeulen/vim-cutlass'
 nnoremap m d
 xnoremap m d
-
 nnoremap mm dd
 nnoremap M D
+
+" allows mark to be accessed
+nnoremap gm m
 
 Plug 'svermeulen/vim-subversive'
 nmap s <plug>(SubversiveSubstitute)
 nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
+
 
 " Plug 'svermeulen/vim-yoink'
 
@@ -60,9 +87,9 @@ endif
 autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
 " autocmd ColorScheme * hi MatchParen gui=bold guibg=none guifg=#FD971F
 
-nnoremap <c-p> :Files<cr>
+nnoremap <c-p> :GFiles<cr>
 
-" " ctrlp settings
+" ctrlp settings
 " let g:ctrlp_map = '<c-p>'
 " let g:ctrlp_cmd = 'CtrlPMixed'
 " let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -87,8 +114,12 @@ set relativenumber
 set cursorline
 syntax on
 
-"nnoremap <esc> :noh<return><esc>
-nnoremap gm m
+" incremental search
+set incsearch
+set hlsearch
+
+"save shortcut
+command W w
 
 let g:EasyClipUseSubstituteDefaults = 1
 
@@ -130,10 +161,9 @@ au BufNewFile,BufRead *.cc,*.c,*cpp,*.h,*.hpp set tabstop=4|
 "     \set fileformat=unix
 
 
-" incremental search
-set incsearch
-set hlsearch
 
+"caused issues 
+"nnoremap <esc> :noh<return><esc>
 
 " makes enter key highlight word under cursor
 let g:highlighting = 0
@@ -147,8 +177,17 @@ function! Highlighting()
   return ":silent set hlsearch\<CR>"
 endfunction
 nnoremap <silent> <expr> <CR> Highlighting()
-" vnoremap <silent> <expr> <CR> Highlighting()
 
 
-command W w
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+            \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
 
