@@ -26,6 +26,7 @@ let g:SuperTabContextDefaultCompletionType = "<c-n>"
 """ EXTRA COMMANDS -----
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'wellle/targets.vim'
 
 Plug 'mg979/vim-visual-multi'
 let g:VM_maps = {}
@@ -37,7 +38,6 @@ let g:VM_maps["Add Cursor Up"]               = '<C-k'
 
 let g:VM_maps["Align"]                       = 'ga'
 let g:VM_maps["Visual Cursors"]              = 'gl'
-
 
 " Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
@@ -226,4 +226,18 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
+"remaps join line to L to prevent shadowing
+nnoremap L J 
+
+" Allows for scrolling while keeping cursor on screen
+" https://vim.fandom.com/wiki/Combining_move_and_scroll
+function! s:Saving_scroll(cmd)
+  let save_scroll = &scroll
+  execute 'normal! ' . a:cmd
+  let &scroll = save_scroll
+endfunction
+nnoremap J :call <SID>Saving_scroll("2<C-V><C-D>")<CR>
+vnoremap J <Esc>:call <SID>Saving_scroll("gv2<C-V><C-D>")<CR>
+nnoremap K :call <SID>Saving_scroll("2<C-V><C-U>")<CR>
+vnoremap K <Esc>:call <SID>Saving_scroll("gv2<C-V><C-U>")<CR>
 
