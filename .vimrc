@@ -5,20 +5,24 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'tomasr/molokai'
 
+""" AESTHETICS
+Plug 'tomasr/molokai'
 Plug 'bling/vim-airline'
 
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " need to set leader 
 "
+""" AUTOCOMPLETE
 Plug 'ervandew/supertab'
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 
+""" EXTRA COMMANDS
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 
 
+""" JUPYTER INTEGRATION
 Plug 'jpalardy/vim-slime', { 'for': 'python' }
 " Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
@@ -26,7 +30,25 @@ Plug 'jpalardy/vim-slime', { 'for': 'python' }
 Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
 " Plug 'goerz/jupytext.vim' "vim-plug # jupytext
 
+""" ??????
+set nocompatible
+" filetype plugin indent on
 
+" Plug 'samoshkin/vim-mergetool'
+
+" let g:mergetool_layout = 'mr'
+" let g:mergetool_prefer_revision = 'local'
+" nmap \mt <plug>(MergetoolToggle)
+
+
+""" FOLDING ----
+Plug 'tmhedberg/SimpylFold'
+" opens all folds on loading file
+autocmd BufWinEnter * silent! :%foldopen!
+
+
+" paste in insert mode
+inoremap <C-v> <C-r>"
 
 let g:slime_target = 'tmux'
 
@@ -71,6 +93,8 @@ Plug 'mg979/vim-visual-multi'
 Plug 'easymotion/vim-easymotion'
 
 " Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'dbeecham/ctrlp-commandpalette.vim'
+"
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -84,10 +108,17 @@ if has("gui_vimr")
 	 let g:molokai_original = 1
 endif
 
+" fixes matching parentheis being confusigly coloured
 autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
 " autocmd ColorScheme * hi MatchParen gui=bold guibg=none guifg=#FD971F
 
 nnoremap <c-p> :GFiles<cr>
+" nnoremap <c-P> :Commands<cr>
+nnoremap <C-l> :Rg <CR>
+nnoremap <C-d> :Ex <CR>
+
+" makes using fzf remember location in file
+autocmd BufEnter * silent! normal! g`"
 
 " ctrlp settings
 " let g:ctrlp_map = '<c-p>'
@@ -140,6 +171,7 @@ let g:VM_maps["Add Cursor Up"]               = '<C-k'
 let g:VM_maps["Align"]                       = 'ga'
 let g:VM_maps["Visual Cursors"]              = 'gl'
 
+""" LANGUAGE SPECIFICS
 
 " Python config
 au BufNewFile,BufRead *.py
@@ -162,6 +194,8 @@ au BufNewFile,BufRead *.cc,*.c,*cpp,*.h,*.hpp set tabstop=4|
 
 
 
+""" MANAULLY PROGRAMED BEHAVIOUR
+
 "caused issues 
 "nnoremap <esc> :noh<return><esc>
 
@@ -182,7 +216,7 @@ nnoremap <silent> <expr> <CR> Highlighting()
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
 " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
             \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
 
 " Notification after file change
