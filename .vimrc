@@ -10,10 +10,6 @@ call plug#begin()
 Plug 'tomasr/molokai'
 Plug 'bling/vim-airline'
 
-colo molokai
-if has("gui_vimr")
-	 let g:molokai_original = 1
-endif
 " fixes matching parentheis being confusigly coloured
 autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
 " autocmd ColorScheme * hi MatchParen gui=bold guibg=none guifg=#FD971F
@@ -155,6 +151,11 @@ set nocompatible
 
 call plug#end()
 
+""" ENABLE COLOSCHEME
+colo molokai
+if has("gui_vimr")
+	 let g:molokai_original = 1
+endif
 
 """ STANDARD SETTING -----
 inoremap jk <Esc>
