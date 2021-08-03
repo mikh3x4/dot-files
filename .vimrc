@@ -6,39 +6,52 @@ endif
 
 call plug#begin()
 
-""" AESTHETICS
+""" AESTHETICS -----
 Plug 'tomasr/molokai'
 Plug 'bling/vim-airline'
 
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-" need to set leader 
-"
-""" AUTOCOMPLETE
+colo molokai
+if has("gui_vimr")
+	 let g:molokai_original = 1
+endif
+" fixes matching parentheis being confusigly coloured
+autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
+" autocmd ColorScheme * hi MatchParen gui=bold guibg=none guifg=#FD971F
+
+
+""" AUTOCOMPLETE -----
 Plug 'ervandew/supertab'
+" let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 " Plug 'davidhalter/jedi-vim'
 
-""" EXTRA COMMANDS
+
+""" EXTRA COMMANDS -----
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 
+Plug 'mg979/vim-visual-multi'
+let g:VM_maps = {}
+let g:VM_maps["Switch Mode"] = 'v'
+let g:VM_maps['Find Under']                  = '<C-n>'
+let g:VM_maps['Find Subword Under']          = '<C-n>'
+let g:VM_maps["Add Cursor Down"]             = '<C-j>'
+let g:VM_maps["Add Cursor Up"]               = '<C-k'
 
-""" JUPYTER INTEGRATION
-Plug 'jpalardy/vim-slime', { 'for': 'python' }
-" Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+let g:VM_maps["Align"]                       = 'ga'
+let g:VM_maps["Visual Cursors"]              = 'gl'
 
-" Plug 'szymonmaszke/vimpyter' "vim-plug # notedown
-Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
-" Plug 'goerz/jupytext.vim' "vim-plug # jupytext
 
-""" ??????
-set nocompatible
-" filetype plugin indent on
+" Plug 'justinmk/vim-sneak'
+Plug 'easymotion/vim-easymotion'
+let g:EasyMotion_do_mapping = 0
+nmap gw <Plug>(easymotion-overwin-f2)
+" nmap s <Plug>(easymotion-overwin-w)
+nmap <Space> <Plug>(easymotion-overwin-w)
+let g:EasyMotion_keys = 'sadfjklewcmpgh'
 
-" Plug 'samoshkin/vim-mergetool'
-
-" let g:mergetool_layout = 'mr'
-" let g:mergetool_prefer_revision = 'local'
-" nmap \mt <plug>(MergetoolToggle)
+let g:EasyMotion_smartcase = 1
 
 
 """ FOLDING ----
@@ -47,8 +60,73 @@ Plug 'tmhedberg/SimpylFold'
 autocmd BufWinEnter * silent! :%foldopen!
 
 
+""" COPY PASTE BEHAVIOUR ----
+
 " paste in insert mode
 inoremap <C-v> <C-r>"
+
+" Plug 'svermeulen/vim-easyclip'
+let g:EasyClipUseSubstituteDefaults = 1
+" noremap <c-]> <plug>EasyClipSwapPasteForward
+" noremap <c-[> <plug>EasyClipSwapPasteBackward
+
+Plug 'svermeulen/vim-cutlass' "delete operations no longer yank
+nnoremap m d
+xnoremap m d
+nnoremap mm dd
+nnoremap M D
+
+" allows mark to be accessed
+nnoremap gm m
+
+Plug 'svermeulen/vim-subversive' "adds substitution opperator
+nmap s <plug>(SubversiveSubstitute)
+nmap ss <plug>(SubversiveSubstituteLine)
+nmap S <plug>(SubversiveSubstituteToEndOfLine)
+
+
+" Plug 'svermeulen/vim-yoink' "maintains yank history and allows rotating
+" nmap <c-[> <plug>(YoinkPostPasteSwapBack)
+" nmap <c-]> <plug>(YoinkPostPasteSwapForward)
+" nmap p <plug>(YoinkPaste_p)
+" nmap P <plug>(YoinkPaste_P)
+
+" nmap [y <plug>(YoinkRotateBack)
+" nmap ]y <plug>(YoinkRotateForward)
+" let g:yoinkIncludeDeleteOperations = 1
+
+
+""" SEARCH PALETTES  -----
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+nnoremap <c-p> :GFiles<cr>
+" nnoremap <c-P> :Commands<cr> " can't fo shift+ctrl
+nnoremap <C-l> :Rg <CR>
+nnoremap <C-d> :Ex <CR>
+
+" makes using fzf remember location in file
+autocmd BufEnter * silent! normal! g`"
+
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'dbeecham/ctrlp-commandpalette.vim'
+" ctrlp settings
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlPMixed'
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+
+""" TMUX INTEGRATION -----
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
+
+""" JUPYTER INTEGRATION
+Plug 'jpalardy/vim-slime', { 'for': 'python' }
+" Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+
+" Plug 'szymonmaszke/vimpyter' "vim-plug # notedown
+Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
+" Plug 'goerz/jupytext.vim' "vim-plug # jupytext
 
 let g:slime_target = 'tmux'
 
@@ -61,83 +139,24 @@ let g:slime_dont_ask_default = 1
 
 nmap g<CR> <Plug>SlimeSendCell
 
-" Plug 'svermeulen/vim-easyclip'
-Plug 'svermeulen/vim-cutlass'
-nnoremap m d
-xnoremap m d
-nnoremap mm dd
-nnoremap M D
+""" DISCOVERABILITY -----
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" need to set leader 
 
-" allows mark to be accessed
-nnoremap gm m
+""" ?????? -----
+set nocompatible
+" filetype plugin indent on
 
-Plug 'svermeulen/vim-subversive'
-nmap s <plug>(SubversiveSubstitute)
-nmap ss <plug>(SubversiveSubstituteLine)
-nmap S <plug>(SubversiveSubstituteToEndOfLine)
+" Plug 'samoshkin/vim-mergetool'
 
-
-" Plug 'svermeulen/vim-yoink'
-
-" nmap <c-[> <plug>(YoinkPostPasteSwapBack)
-" nmap <c-]> <plug>(YoinkPostPasteSwapForward)
-" nmap p <plug>(YoinkPaste_p)
-" nmap P <plug>(YoinkPaste_P)
-
-" nmap [y <plug>(YoinkRotateBack)
-" nmap ]y <plug>(YoinkRotateForward)
-" let g:yoinkIncludeDeleteOperations = 1
-
-Plug 'mg979/vim-visual-multi'
-" Plug 'justinmk/vim-sneak'
-Plug 'easymotion/vim-easymotion'
-
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'dbeecham/ctrlp-commandpalette.vim'
-"
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
+" let g:mergetool_layout = 'mr'
+" let g:mergetool_prefer_revision = 'local'
+" nmap \mt <plug>(MergetoolToggle)
 
 call plug#end()
 
-colo molokai
-if has("gui_vimr")
-	 let g:molokai_original = 1
-endif
 
-" fixes matching parentheis being confusigly coloured
-autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
-" autocmd ColorScheme * hi MatchParen gui=bold guibg=none guifg=#FD971F
-
-nnoremap <c-p> :GFiles<cr>
-" nnoremap <c-P> :Commands<cr>
-nnoremap <C-l> :Rg <CR>
-nnoremap <C-d> :Ex <CR>
-
-" makes using fzf remember location in file
-autocmd BufEnter * silent! normal! g`"
-
-" ctrlp settings
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlPMixed'
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-"
-"
-" easymotoin settings
-"
-let g:EasyMotion_do_mapping = 0
-
-nmap gw <Plug>(easymotion-overwin-f2)
-" nmap s <Plug>(easymotion-overwin-w)
-nmap <Space> <Plug>(easymotion-overwin-w)
-let g:EasyMotion_keys = 'sadfjklewcmpgh'
-
-let g:EasyMotion_smartcase = 1
-
-
+""" STANDARD SETTING -----
 inoremap jk <Esc>
 
 set number
@@ -152,24 +171,7 @@ set hlsearch
 "save shortcut
 command W w
 
-let g:EasyClipUseSubstituteDefaults = 1
 
-" noremap <c-]> <plug>EasyClipSwapPasteForward
-" noremap <c-[> <plug>EasyClipSwapPasteBackward
-
-" let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-
-let g:VM_maps = {}
-let g:VM_maps["Switch Mode"] = 'v'
-let g:VM_maps['Find Under']                  = '<C-n>'
-let g:VM_maps['Find Subword Under']          = '<C-n>'
-let g:VM_maps["Add Cursor Down"]             = '<C-j>'
-let g:VM_maps["Add Cursor Up"]               = '<C-k'
-
-let g:VM_maps["Align"]                       = 'ga'
-let g:VM_maps["Visual Cursors"]              = 'gl'
 
 """ LANGUAGE SPECIFICS
 
@@ -191,7 +193,6 @@ au BufNewFile,BufRead *.cc,*.c,*cpp,*.h,*.hpp set tabstop=4|
     \set expandtab|
     \set autoindent
 "     \set fileformat=unix
-
 
 
 """ MANAULLY PROGRAMED BEHAVIOUR
