@@ -81,7 +81,7 @@ nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 
-" Plug 'svermeulen/vim-yoink' "maintains yank history and allows rotating
+" Plug 'svermeulen/vim-yoink' "maintains yank history and allows rotating.
 " nmap <c-[> <plug>(YoinkPostPasteSwapBack)
 " nmap <c-]> <plug>(YoinkPostPasteSwapForward)
 " nmap p <plug>(YoinkPaste_p)
@@ -102,7 +102,15 @@ nnoremap <C-l> :Rg <CR>
 nnoremap <C-d> :Ex <CR>
 
 " makes using fzf remember location in file
-autocmd BufEnter * silent! normal! g`"
+" autocmd BufEnter * silent! normal! g`"
+" :se nostartofline
+"
+" makes it remeber the fold state and location in file
+augroup remember_folds
+	autocmd!
+	autocmd BufWinLeave * mkview
+	autocmd BufWinEnter * silent! loadview
+augroup END
 
 " Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'dbeecham/ctrlp-commandpalette.vim'
@@ -161,7 +169,7 @@ endif
 inoremap jk <Esc>
 
 set number
-set relativenumber
+" set relativenumber
 set cursorline
 syntax on
 
