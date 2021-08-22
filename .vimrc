@@ -20,7 +20,24 @@ Plug 'ervandew/supertab'
 " let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
+
+"python autocomplte hell
 " Plug 'davidhalter/jedi-vim'
+
+" if has('nvim')
+"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" else
+"   Plug 'Shougo/deoplete.nvim'
+"   Plug 'roxma/nvim-yarp'
+"   Plug 'roxma/vim-hug-neovim-rpc'
+" endif
+" let g:deoplete#enable_at_startup = 1
+" Plug 'deoplete-plugins/deoplete-jedi'
+
+"
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
+" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
 
 """ EXTRA COMMANDS -----
