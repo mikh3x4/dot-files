@@ -77,6 +77,7 @@ autocmd BufWinEnter * silent! :%foldopen!
 
 " paste in insert mode
 inoremap <C-v> <C-r>"
+set clipboard=unnamedplus
 
 " Plug 'svermeulen/vim-easyclip'
 let g:EasyClipUseSubstituteDefaults = 1
