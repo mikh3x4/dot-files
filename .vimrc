@@ -119,15 +119,28 @@ nnoremap <c-p> :GFiles<cr>
 nnoremap <C-l> :Rg <CR>
 nnoremap <C-d> :Ex <CR>
 
+" modified to ignore venv directory content
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --iglob !venv --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
 " makes using fzf remember location in file
 " autocmd BufEnter * silent! normal! g`"
 " :se nostartofline
 "
 " makes it remeber the fold state and location in file
 augroup remember_folds
+	" autocmd!
+	" autocmd BufWinLeave * mkview
+	" autocmd BufWinEnter * silent! loadview
 	autocmd!
-	autocmd BufWinLeave * mkview
-	autocmd BufWinEnter * silent! loadview
+	" view files are about 500 bytes
+	" bufleave but not bufwinleave captures closing 2nd tab
+	" nested is needed by bufwrite* (if triggered via other autocmd)
+	" BufHidden for compatibility with `set hidden`
+	autocmd BufWinLeave,BufLeave,BufWritePost,BufHidden,QuitPre ?* nested silent! mkview!
+	autocmd BufWinEnter ?* silent! loadview
 augroup END
 
 " Plug 'ctrlpvim/ctrlp.vim'
