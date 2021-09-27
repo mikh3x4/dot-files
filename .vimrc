@@ -72,6 +72,9 @@ Plug 'tmhedberg/SimpylFold'
 " opens all folds on loading file
 autocmd BufWinEnter * silent! :%foldopen!
 
+" https://stackoverflow.com/questions/61795798/recalculating-folds-in-vim-without-applying-foldlevel
+au InsertLeave,TextChanged *.py set foldmethod=expr
+
 
 """ COPY PASTE BEHAVIOUR ----
 
