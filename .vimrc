@@ -17,27 +17,44 @@ autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
 
 """ AUTOCOMPLETE -----
 Plug 'ervandew/supertab'
-" let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
+" let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-"python autocomplte hell
-" Plug 'davidhalter/jedi-vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
-" if has('nvim')
-"   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" else
-"   Plug 'Shougo/deoplete.nvim'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-" let g:deoplete#enable_at_startup = 1
-" Plug 'deoplete-plugins/deoplete-jedi'
+let g:lsp_diagnostics_enabled = 0
 
-"
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
-" Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+" set foldmethod=expr
+"   \ foldexpr=lsp#ui#vim#folding#foldexpr()
+"   \ foldtext=lsp#ui#vim#folding#foldtext()
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    " nmap <buffer> gr <plug>(lsp-references)
+    " nmap <buffer> gi <plug>(lsp-implementation)
+    " nmap <buffer> gt <plug>(lsp-type-definition)
+    " nmap <buffer> <leader>rn <plug>(lsp-rename)
+    " nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    " nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> gK <plug>(lsp-hover)
+    " inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    " inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    " let g:lsp_format_sync_timeout = 1000
+    " autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
 
 
 """ EXTRA COMMANDS -----
@@ -102,6 +119,7 @@ nmap ss <plug>(SubversiveSubstituteLine)
 nmap S <plug>(SubversiveSubstituteToEndOfLine)
 
 
+"TODO (add the paste rotate behaviour)
 " Plug 'svermeulen/vim-yoink' "maintains yank history and allows rotating.
 " nmap <c-[> <plug>(YoinkPostPasteSwapBack)
 " nmap <c-]> <plug>(YoinkPostPasteSwapForward)
@@ -117,6 +135,7 @@ nmap S <plug>(SubversiveSubstituteToEndOfLine)
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+"TODO
 nnoremap <c-p> :GFiles<cr>
 " nnoremap <c-P> :Commands<cr> " can't fo shift+ctrl
 nnoremap <C-l> :Rg <CR>
@@ -146,15 +165,9 @@ augroup remember_folds
 	autocmd BufWinEnter ?* silent! loadview
 augroup END
 
-" Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'dbeecham/ctrlp-commandpalette.vim'
-" ctrlp settings
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlPMixed'
-" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
 
 """ TMUX INTEGRATION -----
+"TODO
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
 
