@@ -27,6 +27,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
+
 let g:lsp_diagnostics_enabled = 0
 
 " set foldmethod=expr
@@ -61,6 +62,14 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+" Plug 'liuchengxu/vista.vim'
+" let g:vista_executive_for = {
+"         \ 'cpp': 'vim_lsp',
+"         \ 'python': 'vim_lsp',
+"         \ }
+" let g:vista_ignore_kinds = ['Variable']
+" let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
 
 """ EXTRA COMMANDS -----
