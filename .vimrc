@@ -18,7 +18,7 @@ autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
 """ AUTOCOMPLETE -----
 Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = '<c-x><c-o>'
+let g:SuperTabContextDefaultCompletionType = '<c-p><c-n>'
 " let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 Plug 'prabirshrestha/async.vim'
@@ -27,6 +27,9 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
+Plug 'prabirshrestha/asyncomplete-buffer.vim'
+" Plug 'high-moctane/asyncomplete-nextword.vim'
+" Plug 'prabirshrestha/asyncomplete-file.vim'
 
 let g:lsp_diagnostics_enabled = 0
 
@@ -310,4 +313,30 @@ nnoremap J :call <SID>Saving_scroll("2<C-V><C-D>")<CR>
 vnoremap J <Esc>:call <SID>Saving_scroll("gv2<C-V><C-D>")<CR>
 nnoremap K :call <SID>Saving_scroll("2<C-V><C-U>")<CR>
 vnoremap K <Esc>:call <SID>Saving_scroll("gv2<C-V><C-U>")<CR>
+
+
+
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'allowlist': ['*'],
+    \ 'blocklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ 'config': {
+    \    'max_buffer_size': 5000000,
+    \  },
+    \ }))
+
+" call asyncomplete#register_source(asyncomplete#sources#nextword#get_source_options({
+"             \   'name': 'nextword',
+"             \   'allowlist': ['*'],
+"             \   'args': ['-n', '10000'],
+"             \   'completor': function('asyncomplete#sources#nextword#completor')
+"             \   }))
+
+" au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+"     \ 'name': 'file',
+"     \ 'allowlist': ['*'],
+"     \ 'priority': 10,
+"     \ 'completor': function('asyncomplete#sources#file#completor')
+"     \ }))
 
