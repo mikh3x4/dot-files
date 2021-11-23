@@ -116,6 +116,7 @@ au InsertLeave,TextChanged *.py set foldmethod=expr
 " paste in insert mode
 inoremap <C-v> <C-r>"
 set clipboard=unnamedplus
+" https://issueexplorer.com/issue/rafi/vim-config/145
 
 " Plug 'svermeulen/vim-easyclip'
 let g:EasyClipUseSubstituteDefaults = 1
