@@ -6,6 +6,9 @@ endif
 
 call plug#begin()
 
+" Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'vim-scripts/Improved-AnsiEsc'
+
 """ AESTHETICS -----
 Plug 'tomasr/molokai'
 Plug 'bling/vim-airline'
@@ -226,6 +229,16 @@ set nocompatible
 " nmap \mt <plug>(MergetoolToggle)
 
 call plug#end()
+
+function! TmuxCopyViewer()
+  set nonumber
+  AnsiEsc
+  let g:airline_disable_statusline = 1
+  %s#\($\n\)\+\%$##
+  set ve+=onemore
+  normal! G$l
+endfunction
+command! TmuxCopyViewFunc call TmuxCopyViewer()
 
 """ ENABLE COLOSCHEME
 colo molokai
