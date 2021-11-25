@@ -230,15 +230,19 @@ set nocompatible
 
 call plug#end()
 
-function! TmuxCopyViewer()
+function! TmuxCopyView()
   set nonumber
   AnsiEsc
   let g:airline_disable_statusline = 1
-  %s#\($\n\)\+\%$##
+  "removes trailing whitespace lines
+  silent! execute "%s#\($\n\)\+\%$##"
   set ve+=onemore
-  normal! G$l
+  normal! G$lzz
+  normal! o 
+  command WQ :1,$-1d | execute "w !xargs -I {} tmux send-keys -t :copy-mode.1 {}" | q!
+
 endfunction
-command! TmuxCopyViewFunc call TmuxCopyViewer()
+command! TmuxCopyViewFunc call TmuxCopyView()
 
 """ ENABLE COLOSCHEME
 colo molokai
