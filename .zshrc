@@ -97,7 +97,17 @@
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+
+# if [[ ! -d $HOME/antigen ]]; then
+if [[ ! -f $HOME/antigen.zsh ]]; then
+	echo -e "Antigen not found, installing..."
+	cd $HOME
+	# git clone https://github.com/zsh-users/antigen.git
+	curl -L git.io/antigen > antigen.zsh
+	cd -
+fi
+
 source ~/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-autosuggestions
