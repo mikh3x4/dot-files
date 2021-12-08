@@ -291,6 +291,38 @@ au BufNewFile,BufRead *.cc,*.c,*cpp,*.h,*.hpp set tabstop=4|
 
 """ MANAULLY PROGRAMED BEHAVIOUR
 
+" custom python highlighting
+fun s:python()
+	"syn match dFunction "\<\k\+\ze("
+	"syn match dFunction "\zs\(\k\w*\)*\s*\ze("
+	syntax match dFuncCall /\k\+\%(\s*(\)\@=/
+	"hi link dFunction Function
+	hi dFuncCall ctermfg=81
+	hi dFuncCall guifg=#5fd7ff
+
+	syntax keyword pythonSelf self
+	hi pythonSelf ctermfg=166
+	hi pythonSelf guifg=#d75f00
+
+	syntax keyword pythonBuiltin print len
+	hi pythonBuiltin ctermfg=161
+	hi pythonBuiltin guifg=#F92772
+
+	hi Visual ctermbg=240
+	hi Visual guibg=#585858
+	hi VisualNOS ctermbg=240
+	hi VisualNOS guibg=#585858
+
+	hi String ctermfg=221
+	hi String guifg=#E6DC6D
+endfun
+
+augroup ft_py
+	autocmd!
+	autocmd Syntax python call s:python()
+augroup end
+
+
 "caused issues 
 "nnoremap <esc> :noh<return><esc>
 
