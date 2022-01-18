@@ -45,8 +45,8 @@ function! s:on_lsp_buffer_enabled() abort
     " setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    " nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    " nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
     " nmap <buffer> gr <plug>(lsp-references)
     " nmap <buffer> gi <plug>(lsp-implementation)
     " nmap <buffer> gt <plug>(lsp-type-definition)
@@ -163,7 +163,23 @@ Plug 'junegunn/fzf.vim'
 nnoremap <c-p> :GFiles<cr>
 " nnoremap <c-P> :Commands<cr> " can't fo shift+ctrl
 nnoremap <C-l> :Rg <CR>
-nnoremap <C-d> :Ex <CR>
+" nnoremap <C-d> :Ex <CR>
+
+function! ToggleNetrw()
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+		silent Rexplore
+		return
+            endif
+            let i-=1
+        endwhile
+        silent Explore
+endfunction
+
+" Add your own mapping. For example:
+noremap <silent> <C-d> :call ToggleNetrw()<CR>
+
 
 " modified to ignore venv directory content
 command! -bang -nargs=* Rg
@@ -200,7 +216,7 @@ Plug 'jpalardy/vim-slime', { 'for': 'python' }
 " Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 " Plug 'szymonmaszke/vimpyter' "vim-plug # notedown
-Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
+" Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
 " Plug 'goerz/jupytext.vim' "vim-plug # jupytext
 
 let g:slime_target = 'tmux'

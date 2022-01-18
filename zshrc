@@ -182,6 +182,25 @@ source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 
+setopt no_share_history
+unsetopt share_history
+
+# if tumx is active it refreshes DISPLAY variable
+if [ -n "$TMUX" ]; then
+  function refresh {
+    # export $(tmux show-environment | grep "^KRB5CCNAME")
+    export $(tmux show-environment | grep "^DISPLAY")
+    # aklog
+  }
+else
+  function refresh { }
+fi
+
+function preexec {
+    # refresh
+}
+
+
 function collapse_pwd {
     echo $(pwd | sed -e "s,^$HOME,~,")
 }
@@ -206,12 +225,28 @@ function _git_prompt {
   echo $git_info
 }
 
-PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
+PROMPT='%{$fg_bold[cyan]%}%n@%{$fg[cyan]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
 
 export PATH=/usr/local/bin:$PATH
 
 export EDITOR=vim
-alias vim="nvim"
 
-eval "$(pyenv init -)"
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/media/data/mikadam/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/media/data/mikadam/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/media/data/mikadam/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/media/data/mikadam/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+conda activate gym
 
