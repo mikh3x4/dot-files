@@ -1,6 +1,7 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -200,7 +201,7 @@ Plug 'jpalardy/vim-slime', { 'for': 'python' }
 " Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 " Plug 'szymonmaszke/vimpyter' "vim-plug # notedown
-Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
+" Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
 " Plug 'goerz/jupytext.vim' "vim-plug # jupytext
 
 let g:slime_target = 'tmux'
