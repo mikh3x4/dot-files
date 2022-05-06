@@ -182,6 +182,10 @@ source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 
+# disabled history sharing across sessions
+setopt no_share_history
+unsetopt share_history
+
 function collapse_pwd {
     echo $(pwd | sed -e "s,^$HOME,~,")
 }
