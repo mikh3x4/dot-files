@@ -263,6 +263,8 @@ syntax on
 set incsearch
 set hlsearch
 
+set signcolumn=no "in rust sometimes shows unwanted columns
+
 "save shortcut
 command W w
 
@@ -361,3 +363,4 @@ call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options
 "     \ 'completor': function('asyncomplete#sources#file#completor')
 "     \ }))
 
+tnoremap jk <C-\><C-n>
