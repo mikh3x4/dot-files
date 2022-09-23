@@ -212,10 +212,22 @@ function _git_prompt {
 
 PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
 
+# adding brew path
 export PATH=/usr/local/bin:$PATH
 
 export EDITOR=vim
 alias vim="nvim"
 
+# pyenv setup
 eval "$(pyenv init -)"
+
+
+# Created by `pipx` on 2022-09-23 03:01:35
+export PATH="$PATH:/Users/mik/.local/bin"
+
+autoload -U bashcompinit
+bashcompinit
+
+eval "$(register-python-argcomplete pipx)"
+
 
