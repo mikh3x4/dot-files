@@ -1,0 +1,12 @@
+
+theme = "monokai_pro_spectrum"
+
+[keys.insert]
+j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+"tab" = "completion"
+
+[keys.normal]
+"*" = ["move_prev_word_start", "move_next_word_end", "search_selection"]#, "search_next"]
+
+
+

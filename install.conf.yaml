@@ -8,3 +8,4 @@
     ~/.tmux.conf: tmux.conf
     ~/.vimrc: vimrc
     ~/.zshrc: zshrc
+    ~/.config/helix/config.toml: helix.toml
