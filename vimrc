@@ -200,6 +200,23 @@ augroup remember_folds
 augroup END
 
 
+"""" GHOSTTEXT -------------
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
+Plug 'roxma/vim-hug-neovim-rpc', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
+let g:ghost_darwin_app = 'Terminal'
+
+command A bd! | silent !osascript -e 'tell application "Safari" to activate'
+
+augroup ghost
+	au!
+	autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
+	autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
+	autocmd BufNewFile,BufRead *jupyter* set filetype=python
+augroup END
+
+
+
 """ TMUX INTEGRATION -----
 "TODO
 Plug 'tmux-plugins/vim-tmux-focus-events'
