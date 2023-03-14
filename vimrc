@@ -24,6 +24,9 @@ Plug 'ervandew/supertab'
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = '<c-p><c-n>'
 " let g:SuperTabContextDefaultCompletionType = "<c-n>"
+"
+" Plug 'hrsh7th/nvim-cmp'
+" Plug 'lkhphuc/jupyter-kernel.nvim'
 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -119,6 +122,9 @@ let g:EasyMotion_smartcase = 1
 Plug 'tmhedberg/SimpylFold'
 " opens all folds on loading file
 autocmd BufWinEnter * silent! :%foldopen!
+" g:SimpylFold_fold_import = 0
+
+set foldlevelstart=99
 
 " https://stackoverflow.com/questions/61795798/recalculating-folds-in-vim-without-applying-foldlevel
 au InsertLeave,TextChanged *.py set foldmethod=expr
@@ -200,6 +206,28 @@ augroup remember_folds
 augroup END
 
 
+""" BROWSER INTEGRATION
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+let g:firenvim_config = {
+      \ 'globalSettings': {'alt': 'all'},
+      \ 'localSettings': {
+      \   '.*': {
+      \     'cmdline': 'neovim',
+      \     'content': 'text',
+      \     'priority': 0,
+      \     'selector': 'textarea',
+      \     'takeover': 'never'
+      \   }
+      \ }
+      \}
+
+augroup jupter_txt
+  autocmd!
+  autocmd BufEnter *.ipynb set filetype=python
+augroup END
+
+
 """" GHOSTTEXT -------------
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
@@ -213,8 +241,10 @@ augroup ghost
 	autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
 	autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
 	autocmd BufNewFile,BufRead *jupyter* set filetype=python
+	" autocmd CursorHold * silent! %foldopen!
 augroup END
 
+autocmd BufWinEnter * silent! :%foldopen!
 
 
 """ TMUX INTEGRATION -----
@@ -222,13 +252,21 @@ augroup END
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
 
+
+
 """ JUPYTER INTEGRATION
 Plug 'jpalardy/vim-slime', { 'for': 'python' }
 " Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
+" Plug 'jupyter-vim/jupyter-vim'
+
 " Plug 'szymonmaszke/vimpyter' "vim-plug # notedown
-" Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
+Plug 'anosillus/vim-ipynb' "vim-plug # ipynb-py-convert
 " Plug 'goerz/jupytext.vim' "vim-plug # jupytext
+"
+"
+Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
+let g:magma_automatically_open_output = v:true
 
 let g:slime_target = 'tmux'
 
