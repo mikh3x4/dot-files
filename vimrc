@@ -234,7 +234,21 @@ Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for
 Plug 'roxma/vim-hug-neovim-rpc', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 let g:ghost_darwin_app = 'Terminal'
 
-command A bd! | silent !osascript -e 'tell application "Safari" to activate'
+
+
+" only get triggered inside Ghost
+" command A bd! | silent !osascript -e 'tell application "Safari" to activate'
+function! s:OriginalGhostStart()
+  " Call the original GhostStart command
+  " normal! GhostStart
+
+  " Insert additional command here
+  " For example, to save the current file after running GhostStart:
+  command A bd! | silent !osascript -e 'tell application "Safari" to activate'
+endfunction
+
+command! GhostMy call s:OriginalGhostStart() | GhostStart
+
 
 augroup ghost
 	au!
@@ -304,7 +318,7 @@ function! TmuxCopyView()
   set ve+=onemore
   normal! G$lzz
   normal! o 
-  command WQ :1,$-1d | execute "w !xargs -I {} tmux send-keys -t :copy-mode.1 {}" | q!
+  command A :1,$-1d | execute "w !xargs -I {} tmux send-keys -t :copy-mode.1 {}" | q!
 
 endfunction
 command! TmuxCopyViewFunc call TmuxCopyView()
