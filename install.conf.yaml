@@ -9,3 +9,4 @@
     ~/.vimrc: vimrc
     ~/.zshrc: zshrc
     ~/.config/helix/config.toml: helix.toml
+    ~/.config/nvim/init.lua: neovim.lua
