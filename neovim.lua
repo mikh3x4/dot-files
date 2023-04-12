@@ -3,6 +3,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true })
+vim.api.nvim_set_keymap('t', 'jk', '<C-\\><C-n>', { noremap = true })
 
 vim.wo.number = true
 vim.opt.number = true
@@ -334,7 +335,10 @@ vim.keymap.set('n', 'gb', 'L' , { desc = 'Go to the bottom of the screen' })
 vim.keymap.set('n', 'gn', ':bn' , { desc = 'next buffer' })
 vim.keymap.set('n', 'gp', ':bp' , { desc = 'previous buffer' })
 
-vim.keymap.set('n', '<leader>w', '<C-w>' , { desc = 'window mode' })
+vim.keymap.set('n', '<leader>w', '<C-w>' , { desc = 'Window Mode' })
+vim.keymap.set('n', '<leader>wv', '<C-w>v' , { desc = 'Vertical right split' })
+vim.keymap.set('n', '<leader>ws', '<C-w>s' , { desc = 'Horizontal bottom split' })
+vim.keymap.set('n', '<leader>ww', '<C-w><C-w>' , { desc = 'Switch to next window' })
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 --
@@ -346,8 +350,8 @@ vim.keymap.set('n', 'mm', '%', { desc = 'Goto matching bracket' })
 -- vim.keymap.set('n', 'mi(', 'vi(', { desc = 'test' })
 
 -- Diagnostic keymaps
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
