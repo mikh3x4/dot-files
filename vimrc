@@ -222,6 +222,11 @@ let g:firenvim_config = {
       \ }
       \}
 
+
+" if exists('started_by_firenvim')
+"   command A silent !osascript -e 'tell application "System Events" key code 53 end tell' | q
+" endif
+
 augroup jupter_txt
   autocmd!
   autocmd BufEnter *.ipynb set filetype=python
@@ -245,10 +250,12 @@ function! s:OriginalGhostStart()
   " Insert additional command here
   " For example, to save the current file after running GhostStart:
   command A bd! | silent !osascript -e 'tell application "Safari" to activate'
+  "-e 'tell application "System Events" key code 53'
 endfunction
 
 command! GhostMy call s:OriginalGhostStart() | GhostStart
 
+"   command A silent !osascript -e 'tell application "System Events" key code 53 end tell' | q
 
 augroup ghost
 	au!
