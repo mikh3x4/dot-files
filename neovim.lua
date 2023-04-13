@@ -141,6 +141,36 @@ require('lazy').setup({
     },
   },
 
+  {
+    'kdheepak/tabline.nvim',
+    config = function()
+      require'tabline'.setup {
+        -- Defaults configuration options
+        enable = true,
+        options = {
+          -- If lualine is installed tabline will use separators configured in lualine by default.
+          -- These options can be used to override those settings.
+          section_separators = {'', ''},
+          -- component_separators = {'', ''},
+          -- max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+          show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+          show_devicons = true, -- this shows devicons in buffer section
+          -- show_bufnr = false, -- this appends [bufnr] to buffer section,
+          -- show_filename_only = false, -- shows base filename only instead of relative path in filename
+          -- modified_icon = "+ ", -- change the default modified icon
+          -- modified_italic = false, -- set to true by default; this determines whether the filename turns italic if modified
+          show_tabs_only = true, -- this shows only tabs instead of tabs + buffers
+        }
+      }
+      vim.cmd[[
+      set guioptions-=e " Use showtabline in gui vim
+      set sessionoptions+=tabpages,globals " store tabpages and globals in session
+      ]]
+    end,
+  },
+
+
+
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -155,7 +185,21 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
+  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep', 'sharkdp/fd' } },
+
+  -- { 'alvarosevilla95/luatab.nvim', dependencies = 'nvim-tree/nvim-web-devicons' },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    config = function()
+      require("nvim-tree").setup {}
+    end,
+  },
+
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -358,6 +402,8 @@ vim.keymap.set('n', '<leader>tc', ':tabnew<cr>' , { desc = 'Open new tab' })
 vim.keymap.set('n', '<leader>tn', ':tabnext<cr>' , { desc = 'Go to next tab' })
 vim.keymap.set('n', '<leader>tp', ':tabp<cr>' , { desc = 'Go to previous tab' })
 
+vim.keymap.set('n', '<leader>Bn', ':enew<cr>' , { desc = 'Create a new buffer' })
+vim.keymap.set('n', '<leader>Br', ':tabp<cr>' , { desc = 'Go to previous tab' })
 
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
