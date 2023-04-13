@@ -13,7 +13,6 @@ vim.opt.syntax = 'on'
 
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
-vim.o.hlsearch = false
 
 vim.cmd('command! W w')
 
@@ -194,25 +193,39 @@ require('lazy').setup({
   },
 
 -- delete operations no longer yank
-  { 'svermeulen/vim-cutlass',
-  config = function()
-      vim.api.nvim_exec([[
-        nnoremap m d
-        xnoremap m d
-        nnoremap mm dd
-        nnoremap M D
-      ]], false)
-    end,
-    },
-  -- {
-  -- "gbprod/cutlass.nvim",
+  -- { 'svermeulen/vim-cutlass',
   -- config = function()
-  --   require("cutlass").setup({
-  --     -- your configuration comes here
-  --     -- or leave it empty to use the default settings
-  --     -- refer to the configuration section below
-  --   })
-  -- end
+  --     vim.api.nvim_exec([[
+  --       nnoremap m d
+  --       xnoremap m d
+  --       nnoremap mm dd
+  --       nnoremap M D
+  --     ]], false)
+  --   end,
+  --   },
+  {
+  "gbprod/cutlass.nvim",
+  config = function()
+    require("cutlass").setup({
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    })
+  end
+  },
+
+  -- {'romgrk/barbar.nvim',
+  --   dependencies = 'nvim-tree/nvim-web-devicons',
+  --   init = function()
+  --     vim.g.barbar_auto_setup = false
+  --   end,
+  --   opts = {
+  --     -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+  --     -- animation = true,
+  --     -- insert_at_start = true,
+  --     -- …etc.
+  --   },
+  --   version = '^1.0.0', -- optional: only update when a new 1.x version is released
   -- },
 
    'mg979/vim-visual-multi',
@@ -316,12 +329,12 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
 -- space mode
-vim.keymap.set({'n', 'v'}, '<leader>?', require('telescope.builtin').commands, { desc = '[?] Open command palette' })
-vim.keymap.set({'n', 'v'}, '<leader>b', require('telescope.builtin').buffers, { desc = '[b] Find existing buffers' })
-vim.keymap.set({'n', 'v'}, '<leader>f', require('telescope.builtin').git_files, { desc = '[f] Open file picker' })
-vim.keymap.set({'n', 'v'}, '<leader>F', require('telescope.builtin').find_files, { desc = '[F] Open file picker at current working directory' })
-vim.keymap.set({'n', 'v'}, '<leader>j', require('telescope.builtin').jumplist, { desc = '[j] Open jumplist picker' })
-vim.keymap.set({'n', 'v'}, '<leader>/', require('telescope.builtin').live_grep, { desc = '[/] Global search in workspace folder' })
+vim.keymap.set({'n', 'v'}, '<leader>?', require('telescope.builtin').commands, { desc = 'Open command palette' })
+vim.keymap.set({'n', 'v'}, '<leader>b', require('telescope.builtin').buffers, { desc = 'Find existing [b]uffers' })
+vim.keymap.set({'n', 'v'}, '<leader>f', require('telescope.builtin').git_files, { desc = 'Open [f]ile picker' })
+vim.keymap.set({'n', 'v'}, '<leader>F', require('telescope.builtin').find_files, { desc = 'Open [F]ile picker at current working directory' })
+vim.keymap.set({'n', 'v'}, '<leader>j', require('telescope.builtin').jumplist, { desc = 'Open [j]umplist picker' })
+vim.keymap.set({'n', 'v'}, '<leader>/', require('telescope.builtin').live_grep, { desc = 'Global search in workspace folder' })
 
 vim.keymap.set('n', 'ge', 'G' , { desc = 'Go to the end of the file' })
 vim.keymap.set('n', 'gl', '$' , { desc = 'Go to the end of the line' })
@@ -339,6 +352,13 @@ vim.keymap.set('n', '<leader>w', '<C-w>' , { desc = 'Window Mode' })
 vim.keymap.set('n', '<leader>wv', '<C-w>v' , { desc = 'Vertical right split' })
 vim.keymap.set('n', '<leader>ws', '<C-w>s' , { desc = 'Horizontal bottom split' })
 vim.keymap.set('n', '<leader>ww', '<C-w><C-w>' , { desc = 'Switch to next window' })
+-- vim.keymap.set('n', '<leader>wq', vim.api.nvim_win_close , { desc = 'Close current window' })
+
+vim.keymap.set('n', '<leader>tc', ':tabnew<cr>' , { desc = 'Open new tab' })
+vim.keymap.set('n', '<leader>tn', ':tabnext<cr>' , { desc = 'Go to next tab' })
+vim.keymap.set('n', '<leader>tp', ':tabp<cr>' , { desc = 'Go to previous tab' })
+
+
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 --
@@ -354,7 +374,6 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 -- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
-
 
 
 
@@ -421,6 +440,9 @@ local servers = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
+-- prevents lua lsp from breaking in init.lua
+-- https://www.reddit.com/r/neovim/comments/p0p0kr/solved_undefined_global_vim_error/
+      -- diagnostics = { globals = { 'vim' } }
     },
   },
 }
