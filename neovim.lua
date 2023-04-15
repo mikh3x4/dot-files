@@ -69,8 +69,8 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
 
+    'tomasr/molokai',
   { -- Theme inspired by Atom
-    -- 'tomasr/molokai',
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
@@ -189,6 +189,10 @@ require('lazy').setup({
 
   -- { 'alvarosevilla95/luatab.nvim', dependencies = 'nvim-tree/nvim-web-devicons' },
 
+  -- {"FeiyouG/command_center.nvim",
+  --  requires = { "nvim-telescope/telescope.nvim" }
+  -- },
+
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -286,6 +290,23 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+-- local command_center = require("command_center")
+-- command_center.add({
+--   {
+--     desc = "Open command_center",
+--     cmd = "<CMD>Telescope command_center<CR>",
+--     keys = {
+--       {"n", "<Leader>fc", noremap},
+--       {"v", "<Leader>fc", noremap},
+--
+--       -- If ever hesitate when using telescope start with <leader>f,
+--       -- also open command center
+--       {"n", "<Leader>f", noremap},
+--       {"v", "<Leader>f", noremap},
+--     },
+--   }
+-- }, command_center.mode.REGISTER_ONLY)
+
 require('telescope').setup {
   defaults = {
     mappings = {
@@ -295,6 +316,26 @@ require('telescope').setup {
       },
     },
   },
+  pickers = {
+    colorscheme = {
+      enable_preview = true
+    }
+  },
+  -- extensions = {
+  --
+  --   command_center = {
+  --     -- Your configurations go here
+  --     components = {
+  --       command_center.component.DESC,
+  --       command_center.component.KEYS,
+  --     },
+  --     sort_by = {
+  --       command_center.component.DESC,
+  --       command_center.component.KEYS,
+  --     },
+  --     auto_replace_desc_with_cmd = false,
+  --   }
+  -- }
 }
 
 
@@ -370,6 +411,7 @@ require('nvim-treesitter.configs').setup {
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+-- require("telescope").load_extension("command_center")
 
 -- See `:help telescope.builtin`
 -- space mode
