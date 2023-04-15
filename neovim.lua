@@ -267,14 +267,10 @@ require('lazy').setup({
    'anuvyklack/hydra.nvim',
   config = function()
     require("hydra")( {
-        name = 'Side scroll',
+        name = 'Fast scroll',
         mode = 'n',
         body = 'z',
         heads = {
-          -- { 'h', '5zh' },
-          -- { 'l', '5zl', { desc = '←/→' } },
-          -- { 'H', 'zH' },
-          -- { 'L', 'zL', { desc = 'half screen ←/→' } },
           { 'j', 'j<C-e>j<C-e>', { desc = 'Move screen up by 2 lines' } },
           { 'k', 'k<C-y>k<C-y>', { desc = 'Move screen down by 2 lines' } },
         }
