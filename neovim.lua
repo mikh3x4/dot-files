@@ -255,9 +255,14 @@ require('lazy').setup({
   "gbprod/cutlass.nvim",
   config = function()
     require("cutlass").setup({
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
+          cut_key = 'm',
+          override_del = nil,
+          exclude = {},
+          registers = {
+            select = "_",
+            delete = "_",
+            change = "_",
+          },
     })
   end
   },
@@ -450,7 +455,7 @@ vim.keymap.set('n', '<leader>Br', ':tabp<cr>' , { desc = 'Go to previous tab' })
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 --
-vim.keymap.set('n', 'mm', '%', { desc = 'Goto matching bracket' })
+-- vim.keymap.set('n', 'mm', '%', { desc = 'Goto matching bracket' })
 --
 -- vim.keymap.set('n', 'miw', 'viw', { desc = 'test' })
 -- vim.keymap.set('n', 'miW', 'viW', { desc = 'test' })
