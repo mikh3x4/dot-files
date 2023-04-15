@@ -241,47 +241,47 @@ require('lazy').setup({
   },
 
 -- delete operations no longer yank
-  -- { 'svermeulen/vim-cutlass',
-  -- config = function()
-  --     vim.api.nvim_exec([[
-  --       nnoremap m d
-  --       xnoremap m d
-  --       nnoremap mm dd
-  --       nnoremap M D
-  --     ]], false)
-  --   end,
-  --   },
   {
   "gbprod/cutlass.nvim",
   config = function()
     require("cutlass").setup({
           cut_key = 'm',
-          override_del = nil,
-          exclude = {},
-          registers = {
-            select = "_",
-            delete = "_",
-            change = "_",
-          },
     })
   end
   },
 
-  -- {'romgrk/barbar.nvim',
-  --   dependencies = 'nvim-tree/nvim-web-devicons',
-  --   init = function()
-  --     vim.g.barbar_auto_setup = false
-  --   end,
-  --   opts = {
-  --     -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-  --     -- animation = true,
-  --     -- insert_at_start = true,
-  --     -- …etc.
-  --   },
-  --   version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  -- {
+  -- "svermeulen/vim-yoink",
+  -- config = function()
+  --     vim.keymap.set('n', '<c-n>', "<plug>(YoinkPostPasteSwapBack)", { desc = "" })
+  --     vim.keymap.set('n', '<c-p>', "<plug>(YoinkPostPasteSwapForward)", { desc = "" })
+  --     vim.keymap.set('n', 'p', "<plug>(YoinkPaste_p)", { desc = "" })
+  --     vim.keymap.set('n', 'P', "<plug>(YoinkPaste_P)", { desc = "" })
+  --     vim.g.yoinkIncludeDeleteOperations = 1
+  -- end
   -- },
 
    'mg979/vim-visual-multi',
+
+  {
+   'anuvyklack/hydra.nvim',
+  config = function()
+    require("hydra")( {
+        name = 'Side scroll',
+        mode = 'n',
+        body = 'z',
+        heads = {
+          -- { 'h', '5zh' },
+          -- { 'l', '5zl', { desc = '←/→' } },
+          -- { 'H', 'zH' },
+          -- { 'L', 'zL', { desc = 'half screen ←/→' } },
+          { 'j', 'j<C-e>j<C-e>', { desc = 'Move screen up by 2 lines' } },
+          { 'k', 'k<C-y>k<C-y>', { desc = 'Move screen down by 2 lines' } },
+        }
+      })
+
+  end
+  },
 
 }, {})
 
@@ -291,6 +291,9 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+-- vim.keymap.set('n', 'zj', 'j<C-e>', { expr = false, silent = true })
+-- vim.keymap.set('n', 'zk', 'k<C-y>', { expr = false, silent = true })
 
 
 -- [[ Configure Telescope ]]
