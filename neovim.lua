@@ -655,5 +655,15 @@ endfunction
 nnoremap <silent> <expr> <CR> Highlighting()
 ]], false)
 
+
+-- on vim startup cd to terminal pwd
+vim.api.nvim_exec([[
+  augroup cdpwd
+      autocmd!
+      autocmd VimEnter * cd $PWD
+  augroup END
+]], false)
+
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
