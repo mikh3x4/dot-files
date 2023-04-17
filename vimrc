@@ -102,7 +102,7 @@ let g:VM_maps["Switch Mode"] = 'v'
 let g:VM_maps['Find Under']                  = '<C-n>'
 let g:VM_maps['Find Subword Under']          = '<C-n>'
 let g:VM_maps["Add Cursor Down"]             = '<C-j>'
-let g:VM_maps["Add Cursor Up"]               = '<C-k'
+let g:VM_maps["Add Cursor Up"]               = '<C-k>'
 
 let g:VM_maps["Align"]                       = 'ga'
 let g:VM_maps["Visual Cursors"]              = 'gl'
