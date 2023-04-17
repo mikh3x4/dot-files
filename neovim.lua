@@ -69,7 +69,14 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
 
-    'tomasr/molokai',
+  -- {'tomasr/molokai',
+  --   config = function()
+  --     vim.api.nvim_exec([[
+  --     " fixes matching parentheis being confusigly coloured
+  --     autocmd ColorScheme * hi MatchParen cterm=bold ctermbg=black ctermfg=208
+  --     ]], false)
+  --   end,
+  -- },
   { -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
@@ -169,8 +176,6 @@ require('lazy').setup({
     end,
   },
 
-
-
   { -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
@@ -187,12 +192,6 @@ require('lazy').setup({
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim', 'BurntSushi/ripgrep', 'sharkdp/fd' } },
 
-  -- { 'alvarosevilla95/luatab.nvim', dependencies = 'nvim-tree/nvim-web-devicons' },
-
-  -- {"FeiyouG/command_center.nvim",
-  --  requires = { "nvim-telescope/telescope.nvim" }
-  -- },
-
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -208,10 +207,9 @@ require('lazy').setup({
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
   -- requirements installed.
+  -- taken from kickstart.lua
   {
     'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
     build = 'make',
     cond = function()
       return vim.fn.executable 'make' == 1
@@ -232,6 +230,7 @@ require('lazy').setup({
   -- folding
   { 'tmhedberg/SimpylFold',
     config = function()
+      -- auto opens all fold when you enter file
       vim.api.nvim_exec([[
         autocmd BufWinEnter * silent! :%foldopen!
         set foldlevelstart=99
@@ -261,8 +260,34 @@ require('lazy').setup({
   -- end
   -- },
 
+  {
    'mg979/vim-visual-multi',
+    config = function()
+        -- vim.g.VM_maps = {}
+        -- vim.g.VM_maps["Switch Mode"] = 'v'
+        -- vim.g.VM_maps['Find Under'] = '<C-n>'
+        -- vim.g.VM_maps['Find Subword Under'] = '<C-n>'
+        -- -- those don't work for some reason
+        -- vim.g.VM_maps["Add Cursor Down"] = '<C-j>'
+        -- vim.g.VM_maps["Add Cursor Up"] = '<C-k>'
+        --
+        -- vim.g.VM_maps["Align"] = 'ga'
+        -- vim.g.VM_maps["Visual Cursors"] = 'gl'
+        vim.api.nvim_exec([[
+          let g:VM_maps = {}
+          let g:VM_maps['Switch Mode'] = 'v'
+          let g:VM_maps['Find Under']                  = '<c-n>'
+          let g:VM_maps['Find Subword Under']          = '<c-n>'
+          let g:VM_maps['Add Cursor Down']             = '<c-j>'
+          let g:VM_maps['Add Cursor Up']               = '<c-k>'
 
+          let g:VM_maps['Align']                       = 'ga'
+          let g:VM_maps['Visual Cursors']              = 'gl'
+        ]], false)
+    end
+  },
+
+  -- easily adds minor modes
   {
    'anuvyklack/hydra.nvim',
   config = function()
@@ -291,6 +316,27 @@ require('lazy').setup({
 
      end
   },
+
+  'tpope/vim-repeat',
+
+  -- easymotion alternatives
+  {
+  'phaazon/hop.nvim',
+    branch = 'v2',
+    config = function()
+      -- you can configure Hop the way you like here; see :h hop-config
+      require('hop').setup {
+        -- keys = 'sadfjklewcmpghlweruio',
+        multi_windows = true,
+      }
+      vim.keymap.set('n', '<leader><leader>', ':HopWord<cr>')
+    end
+  },
+  -- { "ggandor/leap.nvim",
+  --    config = function()
+  --       require('leap').add_default_mappings()
+  --    end
+  -- },
 
 
 }, {})
