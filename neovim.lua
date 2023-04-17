@@ -279,6 +279,20 @@ require('lazy').setup({
   end
   },
 
+  { "anuvyklack/windows.nvim",
+     dependencies = {"anuvyklack/middleclass"},
+     config = function()
+        require('windows').setup()
+
+        vim.keymap.set('n', '<leader>wz', ':WindowsMaximize<cr>')
+        vim.keymap.set('n', '<leader>w_', ':WindowsMaximizeVertically<cr>')
+        vim.keymap.set('n', '<leader>w|', ':WindowsMaximizeHorizontally<cr>')
+        vim.keymap.set('n', '<leader>w=', ':WindowsEqualize<cr>')
+
+     end
+  },
+
+
 }, {})
 
 -- [[ Basic Keymaps ]]
@@ -435,10 +449,10 @@ vim.keymap.set('n', 'gt', 'H' , { desc = 'Go to the top of the screen' })
 vim.keymap.set('n', 'gc', 'M' , { desc = 'Go to the center of the screen' })
 vim.keymap.set('n', 'gb', 'L' , { desc = 'Go to the bottom of the screen' })
 
-vim.keymap.set('n', 'gn', ':bn' , { desc = 'next buffer' })
-vim.keymap.set('n', 'gp', ':bp' , { desc = 'previous buffer' })
+vim.keymap.set('n', 'gn', ':bn' , { desc = 'Next buffer' })
+vim.keymap.set('n', 'gp', ':bp' , { desc = 'Previous buffer' })
 
-vim.keymap.set('n', '<leader>w', '<C-w>' , { desc = 'Window Mode' })
+vim.keymap.set('n', '<leader>w', '<C-w>' , { desc = 'Window Minor Mode' })
 vim.keymap.set('n', '<leader>wv', '<C-w>v' , { desc = 'Vertical right split' })
 vim.keymap.set('n', '<leader>ws', '<C-w>s' , { desc = 'Horizontal bottom split' })
 vim.keymap.set('n', '<leader>ww', '<C-w><C-w>' , { desc = 'Switch to next window' })
@@ -451,6 +465,7 @@ vim.keymap.set('n', '<leader>tp', ':tabp<cr>' , { desc = 'Go to previous tab' })
 vim.keymap.set('n', '<leader>Bn', ':enew<cr>' , { desc = 'Create a new buffer' })
 vim.keymap.set('n', '<leader>Br', ':tabp<cr>' , { desc = 'Go to previous tab' })
 
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>' , { desc = 'Toggle Tree sidebar' })
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 --
