@@ -729,3 +729,13 @@ vim.api.nvim_exec([[
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+--
+-- TODO:
+-- fix ctrl-j in multi cursor
+-- s key does serach multi cursor
+-- U does redo
+-- telescope keybinding search
+-- jupyter intergration
+-- python debugger?
+-- terminal keybindings
