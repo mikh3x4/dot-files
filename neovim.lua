@@ -282,7 +282,7 @@ require('lazy').setup({
           let g:VM_maps['Add Cursor Up']               = '<c-k>'
 
           let g:VM_maps['Align']                       = 'ga'
-          let g:VM_maps['Visual Cursors']              = 'gl'
+          let g:VM_maps['Visual Cursors']              = 'gl' "conflict
         ]], false)
     end
   },
@@ -497,6 +497,7 @@ vim.keymap.set('n', 'gb', 'L' , { desc = 'Go to the bottom of the screen' })
 
 vim.keymap.set('n', 'gn', ':bn' , { desc = 'Next buffer' })
 vim.keymap.set('n', 'gp', ':bp' , { desc = 'Previous buffer' })
+-- vim.keymap.set('n', 'gm', 'm' , { desc = 'Set Mark' })
 
 vim.keymap.set('n', '<leader>w', '<C-w>' , { desc = 'Window Minor Mode' })
 vim.keymap.set('n', '<leader>wv', '<C-w>v' , { desc = 'Vertical right split' })
