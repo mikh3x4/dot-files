@@ -229,13 +229,6 @@ require('lazy').setup({
       vim.o.foldmethod = "expr"
       vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
-      -- autoopens fold
-      vim.api.nvim_exec([[
-        autocmd BufWinEnter * silent! :%foldopen!
-        set foldlevelstart=99
-        au InsertLeave,TextChanged *.py set foldmethod=expr
-      ]], false)
-
     end,
   },
 
@@ -713,6 +706,13 @@ augroup remember_folds
   autocmd BufWinLeave,BufLeave,BufWritePost,BufHidden,QuitPre ?* nested silent! mkview!
   autocmd BufWinEnter ?* silent! loadview
 augroup END
+]], false)
+
+-- autoopens fold
+vim.api.nvim_exec([[
+  autocmd BufWinEnter * silent! :%foldopen!
+  set foldlevelstart=99
+  au InsertLeave,TextChanged *.py set foldmethod=expr
 ]], false)
 
 -- makes return highlight word under curser
