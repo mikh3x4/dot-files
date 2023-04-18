@@ -46,6 +46,7 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -223,21 +224,33 @@ require('lazy').setup({
     },
     config = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
-    end,
-  },
 
+      -- folding magic
+      vim.o.foldmethod = "expr"
+      vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
-  -- folding
-  { 'tmhedberg/SimpylFold',
-    config = function()
-      -- auto opens all fold when you enter file
+      -- autoopens fold
       vim.api.nvim_exec([[
         autocmd BufWinEnter * silent! :%foldopen!
         set foldlevelstart=99
         au InsertLeave,TextChanged *.py set foldmethod=expr
       ]], false)
+
     end,
   },
+
+
+  -- folding
+  -- { 'tmhedberg/SimpylFold',
+  --   config = function()
+  --     -- auto opens all fold when you enter file
+  --     vim.api.nvim_exec([[
+  --       autocmd BufWinEnter * silent! :%foldopen!
+  --       set foldlevelstart=99
+  --       au InsertLeave,TextChanged *.py set foldmethod=expr
+  --     ]], false)
+  --   end,
+  -- },
 
 -- delete operations no longer yank
   {
@@ -739,3 +752,4 @@ vim.api.nvim_exec([[
 -- jupyter intergration
 -- python debugger?
 -- terminal keybindings
+-- folding
