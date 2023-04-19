@@ -335,7 +335,7 @@ require('lazy').setup({
         -- keys = 'sadfjklewcmpghlweruio',
         multi_windows = true,
       }
-      vim.keymap.set('n', '<leader><leader>', ':HopWord<cr>')
+      vim.keymap.set('n', '<leader><leader>', ':HopWordMW<cr>', { desc = 'Hop to any word' })
     end
   },
   -- { "ggandor/leap.nvim",
