@@ -310,6 +310,12 @@ require('lazy').setup({
   end
   },
 
+  { "mbbill/undotree",
+     config = function()
+        vim.keymap.set('n', '<leader>u', ':UndotreeToggle<CR>', {desc = 'Toggle Undotree'})
+     end
+  },
+
   { "anuvyklack/windows.nvim",
      dependencies = {"anuvyklack/middleclass"},
      config = function()
@@ -335,7 +341,7 @@ require('lazy').setup({
         -- keys = 'sadfjklewcmpghlweruio',
         multi_windows = true,
       }
-      vim.keymap.set('n', '<leader><leader>', ':HopWordMW<cr>', { desc = 'Hop to any word' })
+      vim.keymap.set('n', '<leader><leader>', ':HopWord<cr>', { desc = 'Hop to any word' })
     end
   },
   -- { "ggandor/leap.nvim",
@@ -519,6 +525,8 @@ vim.keymap.set('n', '<leader>Bn', ':enew<cr>' , { desc = 'Create a new buffer' }
 vim.keymap.set('n', '<leader>Br', ':tabp<cr>' , { desc = 'Go to previous tab' })
 
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>' , { desc = 'Toggle Tree sidebar' })
+
+vim.keymap.set('n', 'U', '<c-r>' , { desc = 'Redo' })
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 --
