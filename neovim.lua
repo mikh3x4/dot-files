@@ -82,7 +82,16 @@ require('lazy').setup({
     'navarasu/onedark.nvim',
     priority = 1000,
     config = function()
+      require('onedark').setup  {
+        style = 'darker',
+        term_colors = true,
+      }
       vim.cmd.colorscheme 'onedark'
+      vim.g.terminal_color_7 = "#50545c"
+      vim.g.terminal_color_255 = "#000000"
+      vim.g.terminal_color_15 = "#000000"
+      vim.g.terminal_color_250 = "#000000"
+      vim.g.terminal_color_251 = "#000000"
     end,
   },
 
