@@ -355,6 +355,61 @@ require('lazy').setup({
   --    end
   -- },
 
+  {
+    'glacambre/firenvim',
+    -- Lazy load firenvim to cooperate with brave
+    -- Explanation: https://github.com/folke/lazy.nvim/discussions/463#discussioncomment-4819297
+    cond = not not vim.g.started_by_firenvim,
+    priority = 10,
+    build = function()
+        require("lazy").load({ plugins = "firenvim", wait = true })
+        vim.fn["firenvim#install"](0)
+    end,
+    config = function()
+        -- require'tabline'.setup {enable = false}
+        vim.keymap.set('n', '<Esc>', ':wq<cr>', { desc = 'Exit cell' })
+        vim.cmd.colorscheme 'zellner'
+        -- vim.cmd(":JupyterAttach<cr>1<cr>")
+        -- vim.api.nvim_exec([[
+        --     " let g:firenvim_config = {
+        --     " \ 'globalSettings': {'alt': 'all'},
+        --     " \ 'localSettings': {
+        --     " \   '.*': {
+        --     " \     'cmdline': 'neovim',
+        --     " \     'content': 'text',
+        --     " \     'priority': 0,
+        --     " \     'selector': 'textarea',
+        --     " \     'takeover': 'never'
+        --     " \   }
+        --     " \ }
+        --     " \}
+        -- ]], false)
+    end
+  },
+  -- { 'dccsillag/magma-nvim' },
+  --
+  -- --requres ipynb-py-convert
+  -- {'luk400/vim-jukit' },
+
+  {
+  "lkhphuc/jupyter-kernel.nvim",
+  opts = {
+    inspect = {
+      -- opts for vim.lsp.util.open_floating_preview
+      window = {
+        max_width = 84,
+      },
+    },
+    -- time to wait for kernel's response in seconds
+    timeout = 0.5,
+  },
+  cmd = {"JupyterAttach", "JupyterInspect", "JupyterExecute"},
+  build = ":UpdateRemotePlugins",
+  keys = { { "<leader>k", "<Cmd>JupyterInspect<CR>", desc = "Inspect object in kernel" } },
+
+}
+
+
 
 }, {})
 
@@ -690,6 +745,7 @@ cmp.setup {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
+    { name = 'jupyter' },
     { name = 'path', option = {
          trailing_slash = true,
       }},
