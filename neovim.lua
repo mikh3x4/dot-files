@@ -327,6 +327,7 @@ require('lazy').setup({
         require('windows').setup()
 
         vim.keymap.set('n', '<leader>wz', ':WindowsMaximize<cr>')
+        -- vim.keymap.set('n', '<c-w>z', ':WindowsMaximize<cr>')
         vim.keymap.set('n', '<leader>w_', ':WindowsMaximizeVertically<cr>')
         vim.keymap.set('n', '<leader>w|', ':WindowsMaximizeHorizontally<cr>')
         vim.keymap.set('n', '<leader>w=', ':WindowsEqualize<cr>')
@@ -534,6 +535,11 @@ vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<cr>' , { desc = 'Toggle Tree s
 vim.keymap.set('n', 'U', '<c-r>' , { desc = 'Redo' })
 
 -- vim.keymap.set('n', 'miw', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+--
+vim.keymap.set('n', '<c-h>', '<C-w>h' , { desc = '' })
+vim.keymap.set('n', '<c-j>', '<C-w>j' , { desc = '' })
+vim.keymap.set('n', '<c-k>', '<C-w>k' , { desc = '' })
+vim.keymap.set('n', '<c-l>', '<C-w>l' , { desc = '' })
 --
 -- vim.keymap.set('n', 'mm', '%', { desc = 'Goto matching bracket' })
 --
