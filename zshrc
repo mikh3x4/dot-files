@@ -218,18 +218,26 @@ export PATH=/usr/local/bin:$PATH
 export EDITOR=vim
 alias vim="nvim"
 
-# pyenv setup
-eval "$(pyenv init -)"
-
-
 # Created by `pipx` on 2022-09-23 03:01:35
 export PATH="$PATH:/Users/mik/.local/bin"
+
+export PATH="$PATH:/snap/bin"
 
 autoload -U bashcompinit
 bashcompinit
 
 eval "$(register-python-argcomplete pipx)"
 
-alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
-alias del="trash"
+#alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
+#alias del="trash"
 
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export PYTHONPATH="/home/mik/windborne/windborne/infra:$PYTHONPATH" #this line was added by windborne's setup tool
+alias amslah="make -f /home/$USER/amslah/Makefile" #this line was added by windborne's setup tool
+alias al="amslah" #this line was added by windborne's setup tool
+export PATH="/home/mik/windborne/windborne/bin:$PATH" #this line was added by windborne's setup tool
+alias p="python3" #this line was added by windborne's setup tool
