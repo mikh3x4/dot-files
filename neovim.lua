@@ -70,6 +70,8 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
 
+  'dstein64/vim-startuptime',
+
   -- {'tomasr/molokai',
   --   config = function()
   --     vim.api.nvim_exec([[
@@ -120,7 +122,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
+      -- { 'j-hui/fidget.nvim', version = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -608,7 +610,7 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  clangd = {},
+  -- clangd = {},
   -- gopls = {},
   pyright = {},
   pylsp = {},
@@ -758,6 +760,12 @@ vim.api.nvim_exec([[
   augroup END
 ]], false)
 
+vim.cmd([[
+  autocmd BufNewFile,BufRead *.cppz set filetype=cpp
+  autocmd BufNewFile,BufRead *.hz set filetype=cpp
+]])
+
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
@@ -772,3 +780,6 @@ vim.api.nvim_exec([[
 -- python debugger?
 -- terminal keybindings
 -- folding
+--
+--
+--
