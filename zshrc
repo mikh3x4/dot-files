@@ -233,3 +233,6 @@ eval "$(register-python-argcomplete pipx)"
 alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
 alias del="trash"
 
+
+
+export PICO_SDK_PATH=/Users/mik/Desktop/git_repos/pico-sdk
