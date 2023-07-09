@@ -210,17 +210,33 @@ function _git_prompt {
   echo $git_info
 }
 
-PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
+#replaces collapse_pwd
+function custom_collapse_pwd() {
+  local pwd_var="$(collapse_pwd)"
+  local directories=("${(@s:/:)pwd_var}")
+  local len="$#directories"
+  if (( len > 2 )); then
+    # Display last two directories with "..." before that
+    echo "+/${directories[len-1]}/${directories[len]}"
+  else
+    # Display the full directory if there are 1 or 2 directories only
+    echo "$pwd_var"
+  fi
+}
+
+PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(custom_collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
 
 # adding brew path
 export PATH=/usr/local/bin:$PATH
 
 export EDITOR=vim
 alias vim="nvim"
+alias v="nvim"
 
 # pyenv setup
 eval "$(pyenv init -)"
-
+eval "$(pyenv virtualenv-init -)"
+# if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 # Created by `pipx` on 2022-09-23 03:01:35
 export PATH="$PATH:/Users/mik/.local/bin"
@@ -236,3 +252,12 @@ alias del="trash"
 
 
 export PICO_SDK_PATH=/Users/mik/Desktop/git_repos/pico-sdk
+
+
+export WINDBORNE_DIR="/Users/mik/Desktop/windborne/windborne"
+# alias amslah="make -f ~/Desktop/windborne/amslah/Makefile"
+alias amslah="make -f $WINDBORNE_DIR/../amslah/Makefile"
+alias al="amslah"
+export PATH="$WINDBORNE_DIR/bin:$PATH"
+export PYTHONPATH="$WINDBORNE_DIR/infra:$PYTHONPATH"
+
