@@ -501,8 +501,8 @@ pcall(require('telescope').load_extension, 'fzf')
 -- space mode
 vim.keymap.set({'n', 'v'}, '<leader>?', require('telescope.builtin').commands, { desc = 'Open command palette' })
 vim.keymap.set({'n', 'v'}, '<leader>b', require('telescope.builtin').buffers, { desc = 'Find existing [b]uffers' })
-vim.keymap.set({'n', 'v'}, '<leader>f', require('telescope.builtin').git_files, { desc = 'Open [f]ile picker' })
-vim.keymap.set({'n', 'v'}, '<leader>F', require('telescope.builtin').find_files, { desc = 'Open [F]ile picker at current working directory' })
+vim.keymap.set({'n', 'v'}, '<leader>F', require('telescope.builtin').git_files, { desc = 'Open [f]ile picker' })
+vim.keymap.set({'n', 'v'}, '<leader>f', require('telescope.builtin').find_files, { desc = 'Open [F]ile picker at current working directory' })
 vim.keymap.set({'n', 'v'}, '<leader>j', require('telescope.builtin').jumplist, { desc = 'Open [j]umplist picker' })
 vim.keymap.set({'n', 'v'}, '<leader>/', require('telescope.builtin').live_grep, { desc = 'Global search in workspace folder' })
 
@@ -635,6 +635,15 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    underline = true,
+    virtual_text = false,
+    signs = true,
+    update_in_insert = false,
+  }
+)
+
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 
@@ -697,7 +706,11 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
-    { name = 'buffer' },
+    { name = 'buffer',       option = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end
+      } },
     { name = 'path', option = {
          trailing_slash = true,
       }},
