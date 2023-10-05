@@ -501,8 +501,8 @@ pcall(require('telescope').load_extension, 'fzf')
 -- space mode
 vim.keymap.set({'n', 'v'}, '<leader>?', require('telescope.builtin').commands, { desc = 'Open command palette' })
 vim.keymap.set({'n', 'v'}, '<leader>b', require('telescope.builtin').buffers, { desc = 'Find existing [b]uffers' })
-vim.keymap.set({'n', 'v'}, '<leader>f', require('telescope.builtin').git_files, { desc = 'Open [f]ile picker' })
-vim.keymap.set({'n', 'v'}, '<leader>F', require('telescope.builtin').find_files, { desc = 'Open [F]ile picker at current working directory' })
+vim.keymap.set({'n', 'v'}, '<leader>F', require('telescope.builtin').git_files, { desc = 'Open [f]ile picker' })
+vim.keymap.set({'n', 'v'}, '<leader>f', require('telescope.builtin').find_files, { desc = 'Open [F]ile picker at current working directory' })
 vim.keymap.set({'n', 'v'}, '<leader>j', require('telescope.builtin').jumplist, { desc = 'Open [j]umplist picker' })
 vim.keymap.set({'n', 'v'}, '<leader>/', require('telescope.builtin').live_grep, { desc = 'Global search in workspace folder' })
 
