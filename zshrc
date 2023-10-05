@@ -256,8 +256,15 @@ export PICO_SDK_PATH=/Users/mik/Desktop/git_repos/pico-sdk
 
 export WINDBORNE_DIR="/Users/mik/Desktop/windborne/windborne"
 # alias amslah="make -f ~/Desktop/windborne/amslah/Makefile"
-alias amslah="make -f $WINDBORNE_DIR/../amslah/Makefile"
-alias al="amslah"
+# alias amslah="make -f $WINDBORNE_DIR/../amslah/Makefile"
+# alias al="amslah"
+#
 export PATH="$WINDBORNE_DIR/bin:$PATH"
 export PYTHONPATH="$WINDBORNE_DIR/infra:$PYTHONPATH"
+
+
+alias amslah='make -f $(git rev-parse --show-toplevel 2> /dev/null || echo ~ )/amslah/Makefile'
+alias al="amslah"
+
+
 
