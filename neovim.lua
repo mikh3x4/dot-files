@@ -136,6 +136,7 @@ require('lazy').setup({
                      'saadparwaiz1/cmp_luasnip',
                      'hrsh7th/cmp-path',
                      'hrsh7th/cmp-buffer',
+                     'lukas-reineke/cmp-rg'
                     },
   },
 
@@ -712,10 +713,11 @@ cmp.setup {
         get_bufnrs = function()
           return vim.api.nvim_list_bufs()
         end
-      } },
+    }},
     { name = 'path', option = {
          trailing_slash = true,
       }},
+    { name = "rg" },
   },
 }
 
