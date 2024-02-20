@@ -233,6 +233,7 @@ export EDITOR=vim
 alias vim="nvim"
 alias v="nvim"
 
+eval $(keychain --eval github)
 
 # share history between terminals
 setopt share_history
