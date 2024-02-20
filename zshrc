@@ -234,6 +234,9 @@ alias vim="nvim"
 alias v="nvim"
 
 
+# share history between terminals
+setopt share_history
+
 # Created by `pipx` on 2022-09-23 03:01:35
 export PATH="$PATH:/Users/mik/.local/bin"
 export PATH="$PATH:/snap/bin"
