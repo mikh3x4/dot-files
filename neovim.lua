@@ -136,6 +136,7 @@ require('lazy').setup({
                      'saadparwaiz1/cmp_luasnip',
                      'hrsh7th/cmp-path',
                      'hrsh7th/cmp-buffer',
+                     'lukas-reineke/cmp-rg'
                     },
   },
 
@@ -553,7 +554,7 @@ vim.keymap.set('n', '<c-l>', '<C-w>l' , { desc = '' })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
--- vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 
@@ -635,6 +636,7 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
@@ -643,6 +645,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false,
   }
 )
+
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
@@ -710,10 +713,11 @@ cmp.setup {
         get_bufnrs = function()
           return vim.api.nvim_list_bufs()
         end
-      } },
+    }},
     { name = 'path', option = {
          trailing_slash = true,
       }},
+    { name = "rg" },
   },
 }
 

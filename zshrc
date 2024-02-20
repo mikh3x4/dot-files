@@ -210,17 +210,32 @@ function _git_prompt {
   echo $git_info
 }
 
-PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
+#replaces collapse_pwd
+function custom_collapse_pwd() {
+  local pwd_var="$(collapse_pwd)"
+  local directories=("${(@s:/:)pwd_var}")
+  local len="$#directories"
+  if (( len > 2 )); then
+    # Display last two directories with "..." before that
+    echo "+/${directories[len-1]}/${directories[len]}"
+  else
+    # Display the full directory if there are 1 or 2 directories only
+    echo "$pwd_var"
+  fi
+}
+
+PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(custom_collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
 
 # adding brew path
 export PATH=/usr/local/bin:$PATH
 
 export EDITOR=vim
 alias vim="nvim"
+alias v="nvim"
+
 
 # Created by `pipx` on 2022-09-23 03:01:35
 export PATH="$PATH:/Users/mik/.local/bin"
-
 export PATH="$PATH:/snap/bin"
 
 autoload -U bashcompinit
@@ -228,16 +243,22 @@ bashcompinit
 
 eval "$(register-python-argcomplete pipx)"
 
-#alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
-#alias del="trash"
+alias rm="echo Use 'del', or the full path i.e. '/bin/rm'"
+alias del="trash"
 
 # pyenv setup
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
-export PYTHONPATH="/home/mik/windborne/windborne/infra:$PYTHONPATH" #this line was added by windborne's setup tool
-alias amslah="make -f /home/$USER/amslah/Makefile" #this line was added by windborne's setup tool
-alias al="amslah" #this line was added by windborne's setup tool
-export PATH="/home/mik/windborne/windborne/bin:$PATH" #this line was added by windborne's setup tool
+## windborne stuff
+export WINDBORNE_DIR="/home/mik/windborne"
+
+alias amslah='make -f $(git rev-parse --show-toplevel 2> /dev/null || echo ~ )/amslah/Makefile'
+alias al="amslah"
+
+export PATH="$WINDBORNE_DIR/bin:$PATH"
+export PYTHONPATH="$WINDBORNE_DIR/infra:$PYTHONPATH"
+
 alias p="python3" #this line was added by windborne's setup tool
