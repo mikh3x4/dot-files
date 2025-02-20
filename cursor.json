@@ -1,0 +1,237 @@
+{
+    "workbench.colorTheme": "Dark (Molokai)",
+    "workbench.startupEditor": "none",
+    "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.darwin": "$HOME/.config/nvim/init.lua",
+    "vim.vimrc.enable": true,
+    "vim.easymotion": true,
+    "editor.tabCompletion": "on",
+    "telemetry.telemetryLevel": "error",
+    "editor.snippetSuggestions": "top",
+    "explorer.confirmDragAndDrop": false,
+    "git.confirmSync": false,
+    "workbench.colorCustomizations": {
+        "terminal.background": "#2c3e4f",
+        "terminal.foreground": "#40d087",
+        "terminal.ansiBlack": "#2d3c50",
+        "terminal.ansiBrightBlack": "#2c3a4d",
+        "terminal.ansiBrightBlue": "#57aaff",
+        "terminal.ansiBrightCyan": "#3dbe99",
+        "terminal.ansiBrightGreen": "#35a251",
+        "terminal.ansiBrightMagenta": "#964ab6",
+        "terminal.ansiBrightRed": "#de574d",
+        "terminal.ansiBrightWhite": "#ecf0f1",
+        "terminal.ansiBrightYellow": "#ebab06",
+        "terminal.ansiBlue": "#4d9be9",
+        "terminal.ansiCyan": "#34a283",
+        "terminal.ansiGreen": "#3ab15a",
+        "terminal.ansiMagenta": "#8c34b0",
+        "terminal.ansiRed": "#b9362a",
+        "terminal.ansiWhite": "#bec3c6",
+        "terminal.ansiYellow": "#ec9e11",
+        "terminal.selectionBackground": "#8d44ac",
+        "terminalCursor.background": "#ebc806",
+        "terminalCursor.foreground": "#ffffff"
+    },
+    "notebook.showFoldingControls": "always",
+    "vim.foldfix": true,
+    "vim.highlightedyank.enable": true,
+    "vim.normalModeKeyBindings": [],
+    "vim.hlsearch": true,
+    "editor.bracketPairColorization.enabled": true,
+    "vim.searchHighlightColor": "#fbd667",
+    "vim.searchHighlightTextColor": "#2E3C50",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "<space>",
+                "<space>"
+            ],
+            "after": [
+                "leader",
+                "leader",
+                "leader",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "<space>",
+                "f"
+            ],
+            "commands": [
+                "workbench.action.quickOpen"
+            ]
+        },
+        {
+            "before": [
+                "<space>",
+                "/"
+            ],
+            "commands": [
+                "workbench.action.findInFiles"
+            ]
+        },
+        {
+            "before": [
+                "<CR>"
+            ],
+            "after": [
+                "*",
+                "N"
+            ]
+        },
+        {
+            "before": [
+                "J"
+            ],
+            "after": [
+                "L"
+            ]
+        },
+        {
+            "before": [
+                "<ESC>"
+            ],
+            "commands": [
+                ":nohl"
+            ]
+        },
+        {
+            "before": [
+                "d"
+            ],
+            "after": [
+                "\"",
+                "_",
+                "d"
+            ]
+        },
+        {
+            "before": [
+                "c"
+            ],
+            "after": [
+                "\"",
+                "_",
+                "c"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "d"
+            ],
+            "after": [
+                "\"",
+                "_",
+                "d"
+            ]
+        },
+        {
+            "before": [
+                "c"
+            ],
+            "after": [
+                "\"",
+                "_",
+                "c"
+            ]
+        }
+    ],
+    "vim.commandLineModeKeyBindings": [
+        {
+            "before": [
+                "W",
+                "<CR>"
+            ],
+            "after": [
+                "w",
+                "<CR>"
+            ]
+        }
+    ],
+    "macros": {
+        "scrollViewDown": [
+            {
+                "command": "editorScroll",
+                "args": {
+                    "by": "line",
+                    "to": "down",
+                    "revealCursor": true,
+                    "value": 1
+                }
+            },
+            {
+                "command": "cursorMove",
+                "args": {
+                    "by": "line",
+                    "to": "down",
+                    "value": 1
+                }
+            }
+        ],
+        "scrollViewUp": [
+            {
+                "command": "editorScroll",
+                "args": {
+                    "by": "line",
+                    "to": "up",
+                    "revealCursor": true,
+                    "value": 1
+                }
+            },
+            {
+                "command": "cursorMove",
+                "args": {
+                    "by": "line",
+                    "to": "up",
+                    "value": 1
+                }
+            }
+        ]
+    },
+    "vim.easymotionKeys": "hklyuiopnmqwertzxcvbasdgjf",
+    "vim.useSystemClipboard": true,
+    "vim.visualstar": true,
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "editor.minimap.enabled": false,
+    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.wordBasedSuggestionsMode": "matchingDocuments",
+    "editor.suggestSelection": "recentlyUsed",
+    "editor.suggest.localityBonus": true,
+    "[python]": {
+        "editor.wordBasedSuggestions": "matchingDocuments"
+    },
+    "python.analysis.autoImportCompletions": false,
+    "terminal.integrated.scrollback": 10000,
+    "settingsSync.ignoredSettings": [
+        "vscode-neovim.neovimExecutablePaths.darwin"
+    ],
+    "vim.easymotionMarkerForegroundColorOneChar": "#00ff00",
+    "vim.easymotionMarkerForegroundColorTwoCharFirst": "#ff0011",
+    "rust-analyzer.completion.autoimport.enable": false,
+    "workbench.editorAssociations": {
+        "*.png": "hediet.vscode-drawio"
+    },
+    "hediet.vscode-drawio.theme": "Kennedy",
+    "svelte.plugin.svelte.note-new-transformation": false,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "window.zoomLevel": 1,
+    "terminal.integrated.defaultLocation": "editor",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "files.associations": {
+        "*.cppz": "cpp",
+        "*.hz": "cpp"
+    },
+}
