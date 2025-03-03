@@ -183,8 +183,8 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion history)
 
 # disabled history sharing across sessions
-setopt no_share_history
-unsetopt share_history
+# setopt no_share_history
+# unsetopt share_history
 
 function collapse_pwd {
     echo $(pwd | sed -e "s,^$HOME,~,")
@@ -224,7 +224,7 @@ function custom_collapse_pwd() {
   fi
 }
 
-PROMPT='%{$fg_bold[yellow]%}%n@%{$fg[yellow]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(custom_collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
+PROMPT='%{$fg_bold[magenta]%}%n@%{$fg[magenta]%}%m:%{$reset_color%} %{$fg_bold[red]%}$(custom_collapse_pwd)%{$reset_color%} $(_git_prompt)$ '
 
 # adding brew path
 export PATH=/usr/local/bin:$PATH
@@ -233,10 +233,11 @@ export EDITOR=vim
 alias vim="nvim"
 alias v="nvim"
 
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 # pyenv setup
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-# if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 # Created by `pipx` on 2022-09-23 03:01:35
 export PATH="$PATH:/Users/mik/.local/bin"
@@ -267,4 +268,8 @@ alias amslah='make -f $(git rev-parse --show-toplevel 2> /dev/null || echo ~ )/a
 alias al="amslah"
 
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+alias ai='aichat -e'
+
+. "$HOME/.cargo/env"
