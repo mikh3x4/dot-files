@@ -266,5 +266,21 @@ export PYTHONPATH="$WINDBORNE_DIR/infra:$PYTHONPATH"
 alias amslah='make -f $(git rev-parse --show-toplevel 2> /dev/null || echo ~ )/amslah/Makefile'
 alias al="amslah"
 
+source ~/.secrets.sh
+alias ai='aichat -e'
 
+# lima() {
+#     local current_dir=$(pwd)
+#     ssh lima "bash -c -i cd '$current_dir' && '$*'"
+# }
+
+# lima() {
+#     local current_dir=$(pwd)
+#     ssh lima "cd '$current_dir' && bash -c 'shopt -s expand_aliases; source ~/.bashrc; $*'"
+# }
+#
+lima() {
+    local current_dir=$(pwd)
+    ssh -t lima "cd '$current_dir' && bash --login -i -c '$*'"
+}
 
